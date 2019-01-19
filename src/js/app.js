@@ -2,8 +2,10 @@ import {TaskList, Task} from './lib.js';
 
 const formEl = document.querySelector('#task-form'); // через # id
 const nameEl = document.querySelector('#task-name');
+const addpriceEl = document.querySelector('#task-price');
 const listEl = document.querySelector('#task-list');
-
+const priceEl = document.querySelector('#price-list');
+const totalpriceEl = document.getElementById('total_price');
 const taskList = new TaskList();
 
 formEl.addEventListener('submit', function (evt) {
@@ -13,17 +15,37 @@ formEl.addEventListener('submit', function (evt) {
     evt.preventDefault(); // просим браузер не делать то, что он делает по умолчанию (обновление стр)
 
     const name = nameEl.value;
+    const price = parseInt(addpriceEl.value);
     // todo: валидация
-    const task = new Task(name);
-    taskList.add(task);
-
+    const task = new Task(name, price);
+    totalpriceEl.textContent = taskList.add(task);
     nameEl.value = '';
+    addpriceEl.value ='';
+
     //  создали элемент
     const liEl = document.createElement('li');
+    const priceEl = document.createElement('span');
     // подставили
     liEl.textContent = task.name;
+    priceEl.textContent = task.price;
     // пока у элемента нет родителя, он не отображается
-    liEl.className = 'list-group-item';
+    liEl.className = 'list-group-item float-left';
+    priceEl.className = 'badge badge-success';
+    const removeEl = document.createElement('button');
+    // <button type="button" class="btn btn-danger">Danger</button>
+    removeEl.className = 'btn btn-outline-danger btn-sm float-right'; // class bootstrap
+    removeEl.textContent = 'Удалить';
+
+
+    removeEl.addEventListener('click', function (evt) {
+        liEl.remove(); // не везде работает
+        // taskList.remove(task);
+        totalpriceEl.textContent = taskList.remove(task);
+    });
+
+    // Самая трудоемкая часть синхронизация между DOM и памятью
+    liEl.appendChild(priceEl);
+    liEl.appendChild(removeEl); //  в скобки берется тот, кого берут
     listEl.appendChild(liEl); // метод взять ребенка
 
 
