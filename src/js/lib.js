@@ -10,6 +10,8 @@ export class TaskList { // несмотря на то, что будет тол�
     constructor() {
         this.items = [];
         this.priceall = 0;
+        this.max_item_price = 0 ;
+        this.max_item_price_index = 0;
     }
 
     add(item) {
@@ -31,6 +33,23 @@ export class TaskList { // несмотря на то, что будет тол�
         console.log(this.priceall);
         this.priceall -= item.price;
         return this.priceall;
+    }
+
+    max_price(item) {
+        const index = this.items.indexOf(item);
+        for (const item of this.items) {
+            if (item.price>this.max_item_price)
+                this.max_item_price = item.price;
+        }
+
+        return this.max_item_price;
+
+    }
+    max_price_name(item){
+        const index = this.items.indexOf(item);
+        for (const item of this.items) {
+
+        }
     }
 
 }

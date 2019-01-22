@@ -15,14 +15,37 @@ formEl.addEventListener('submit', function (evt) {
     evt.preventDefault(); // просим браузер не делать то, что он делает по умолчанию (обновление стр)
     const name = nameEl.value;
     const price = parseInt(addpriceEl.value);
+    const liEl = document.createElement('li');
+    const errorEl = document.getElementById('error-box');
     // todo: валидация
+    if (isNaN(addpriceEl.value)) {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+    if (addpriceEl.value < 0) {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+    if (addpriceEl.value === '') {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+    if (addpriceEl.value === '0'){
+        errorEl.classList.remove('invisible');
+        return;
+    }
+
     const task = new Task(name, price);
     totalpriceEl.textContent = taskList.add(task);
+    errorEl.classList.add('invisible');
     nameEl.value = '';
-    addpriceEl.value ='';
+    addpriceEl.value = '';
+    taskList.max_price(task);
+
+    const totalTextEl = document.getElementById('total_text');
+    totalTextEl.classList.remove('invisible');
 
     //  создали элемент
-    const liEl = document.createElement('li');
     const priceEl = document.createElement('span');
     // подставили
     liEl.textContent = task.name;
@@ -43,6 +66,7 @@ formEl.addEventListener('submit', function (evt) {
     });
 
     // Самая трудоемкая часть синхронизация между DOM и памятью
+
     liEl.appendChild(priceEl);
     liEl.appendChild(removeEl); //  в скобки берется тот, кого берут
     listEl.appendChild(liEl); // метод взять ребенка
