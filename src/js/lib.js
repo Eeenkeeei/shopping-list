@@ -11,7 +11,7 @@ export class TaskList { // несмотря на то, что будет тол�
         this.items = [];
         this.priceall = 0;
         this.max_item_price = 0 ;
-        this.max_item_price_index = 0;
+        this.max_item_name = '';
     }
 
     add(item) {
@@ -28,9 +28,7 @@ export class TaskList { // несмотря на то, что будет тол�
         const index = this.items.indexOf(item);
         if (index !== -1) {
             this.items.splice(index, 1);
-
         }
-        console.log(this.priceall);
         this.priceall -= item.price;
         return this.priceall;
     }
@@ -41,15 +39,15 @@ export class TaskList { // несмотря на то, что будет тол�
             if (item.price>this.max_item_price)
                 this.max_item_price = item.price;
         }
-
         return this.max_item_price;
-
     }
-    max_price_name(item){
+    max_name(item){
         const index = this.items.indexOf(item);
         for (const item of this.items) {
-
+            if (item.price===this.max_item_price)
+                this.max_item_name = item.name;
         }
+        return this.max_item_name;
     }
 
 }

@@ -17,7 +17,7 @@ formEl.addEventListener('submit', function (evt) {
     const price = parseInt(addpriceEl.value);
     const liEl = document.createElement('li');
     const errorEl = document.getElementById('error-box');
-    // todo: валидация
+    // todo: потестить валидатор
     if (isNaN(addpriceEl.value)) {
         errorEl.classList.remove('invisible');
         return;
@@ -40,11 +40,16 @@ formEl.addEventListener('submit', function (evt) {
     errorEl.classList.add('invisible');
     nameEl.value = '';
     addpriceEl.value = '';
-    taskList.max_price(task);
+
 
     const totalTextEl = document.getElementById('total_text');
     totalTextEl.classList.remove('invisible');
-
+    const maxTextEl = document.getElementById('max_text');
+    maxTextEl.classList.remove('invisible');
+    const maxPriceEl = document.getElementById('max_price');
+    maxPriceEl.textContent = taskList.max_price(task);
+    const maxNameEl = document.getElementById('max_name');
+    maxNameEl.textContent = taskList.max_name(task);
     //  создали элемент
     const priceEl = document.createElement('span');
     // подставили

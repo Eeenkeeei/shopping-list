@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -7,15 +7,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <div class="container">
     <div class="row justify-content-center"> <!--.row>.col-4 EMMET -->
-        <!-- 12 -->
-        <div class="col-12">
+
+        <div class="col-10">
             <form class="form-inline" id="task-form">
                 <h3><span class="badge badge-secondary">Название товара</span></h3>
                 <div class="form-group mb-2">
@@ -27,41 +26,28 @@
                     <label for="task-name" class="sr-only">task-name</label>
                     <input type="text"  class="form-control" id="task-price">
                 </div>
-
-
                 <button type="submit" class="btn btn-outline-primary mb-2">Добавить товар</button>
             </form>
-
             <h3><span class="badge badge-danger invisible" id="error-box">Введите корректное значение</span></h3>
             <ul class="list-group" id="task-list">
-
             </ul>
             <ul class="list-group" id="price-list">
-
             </ul>
-
         </div>
-
     </div>
-    <label id="errorbox"></label>
-
 </div>
 
 <div class="container">
     <div class="row justify-content-center"> <!--.row>.col-4 EMMET -->
-        <!-- 12 -->
-        <div class="col-6">
-
+        <div class="col-8">
             <h3><span class="badge badge-secondary invisible" id="total_text">Общая стоимость:</span></h3>
-            <h3><span class="badge badge-success" id="total_price"></span></h3>
-
+            <h3><span class="badge badge-success " id="total_price"></span></h3>
+            <h3><span class="badge badge-secondary invisible" id="max_text">Самый дорогой товар: </span></h3>
+            <h3><span class="badge badge-warning " id="max_name"></span></h3>
+            <h3><span class="badge badge-warning" id="max_price"></span></h3>
         </div>
-
     </div>
-
-
 </div>
-
 
 <script src="js/app.js" type="module"></script>
 <script src="js/lib.js" type="module"></script>
