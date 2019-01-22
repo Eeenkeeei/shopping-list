@@ -13,7 +13,6 @@ formEl.addEventListener('submit', function (evt) {
     // click - переход
     // при отправке - страница перезагружается, форма отправляется на сервер
     evt.preventDefault(); // просим браузер не делать то, что он делает по умолчанию (обновление стр)
-
     const name = nameEl.value;
     const price = parseInt(addpriceEl.value);
     // todo: валидация

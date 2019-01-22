@@ -6,7 +6,7 @@ export class Task {
     }
 }
 
-export class TaskList { //  несмотря на то, что будет только один
+export class TaskList { // несмотря на то, что будет только один
     constructor() {
         this.items = [];
         this.priceall = 0;
@@ -23,13 +23,14 @@ export class TaskList { //  несмотря на то, что будет тол
     }
 
     remove(item) {
-        const index = this.items.indexOf();
+        const index = this.items.indexOf(item);
         if (index !== -1) {
             this.items.splice(index, 1);
 
         }
         console.log(this.priceall);
-        return this.priceall-item.price;
+        this.priceall -= item.price;
+        return this.priceall;
     }
 
 }
