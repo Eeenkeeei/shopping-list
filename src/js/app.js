@@ -30,7 +30,7 @@ formEl.addEventListener('submit', function (evt) {
         errorEl.classList.remove('invisible');
         return;
     }
-    if (addpriceEl.value === '0'){
+    if (addpriceEl.value === '0') {
         errorEl.classList.remove('invisible');
         return;
     }
@@ -59,15 +59,16 @@ formEl.addEventListener('submit', function (evt) {
     liEl.className = 'list-group-item float-left';
     priceEl.className = 'badge badge-success';
     const removeEl = document.createElement('button');
-    // <button type="button" class="btn btn-danger">Danger</button>
-    removeEl.className = 'btn btn-outline-danger btn-sm float-right'; // class bootstrap
+    removeEl.className = 'btn btn-outline-danger btn-sm float-right';
     removeEl.textContent = 'Удалить';
 
 
     removeEl.addEventListener('click', function (evt) {
         liEl.remove(); // не везде работает
-        // taskList.remove(task);
         totalpriceEl.textContent = taskList.remove(task);
+        maxPriceEl.textContent = taskList.update_max_price(task);
+        maxNameEl.textContent = taskList.update_max_name(task);
+
     });
 
     // Самая трудоемкая часть синхронизация между DOM и памятью
