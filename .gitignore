@@ -14,8 +14,9 @@ speed-measure-plugin.json
 /.idea
 
 # IDEs and editors
-/.idea
-!.src/css/style.css
+node_modules/
+.idea/
+.src/css/styles.css
 *.iml
 .project
 .classpath
