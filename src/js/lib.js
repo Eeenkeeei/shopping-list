@@ -49,6 +49,7 @@ export class TaskList { // несмотря на то, что будет тол�
                 if (index !== -1) {
                     for (const item of this.items) {
                         if (item.price > this.max_item_price)
+                            console.log ('this index remove', index);
                             this.max_item_price = item.price;
                     }
                 }
@@ -72,7 +73,6 @@ export class TaskList { // несмотря на то, что будет тол�
     }
 
     update_max_name(item) {
-        console.log(this.items.lastIndexOf());
         return this.max_item_name;
     }
 
@@ -98,6 +98,7 @@ export class TaskList { // несмотря на то, что будет тол�
     max_price(item) {
         const index = this.items.indexOf(item);
         for (const item of this.items) {
+            console.log ('this. index add', index);
             if (item.price > this.max_item_price)
                 this.max_item_price = item.price;
         }
