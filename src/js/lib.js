@@ -9,6 +9,7 @@ export class Task {
 export class TaskList { // несмотря на то, что будет только один
     constructor() {
         this.items = [];
+        this.max_items = [];
         this.priceall = 0;
         this.max_item_price = 0;
         this.max_item_name = '';
@@ -25,40 +26,75 @@ export class TaskList { // несмотря на то, что будет тол�
         this.priceall = totalPrice;
         return this.priceall;
     }
+    // todo:
+    // add_more_max(item){
+    //     const index = this.items.indexOf(item);
+    //     for (const item of this.items) {
+    //         if (item.price === this.max_item_price){
+    //
+    //         }
+    //     }
+    // }
 
     remove(item) {
         const index = this.items.indexOf(item);
         if (index !== -1) {
             this.items.splice(index, 1);
-            if (item.price === this.max_item_price){
-                this.deleted_item_price=item.price;
-                this.deleted_item_name=item.name;
-                console.log('name deleted:',this.deleted_item_name); // возвращает верно
-                console.log('price deleted:',this.deleted_item_price); // возвращает верно
-                console.log('текущий макс', this.max_item_name, this.max_item_price); // возвращает верно
+            if (item.price === this.max_item_price) {
+                this.deleted_item_price = item.price;
+                this.deleted_item_name = item.name;
+                // console.log('name deleted:',this.deleted_item_name); // возвращает верно
+                // console.log('price deleted:',this.deleted_item_price); // возвращает верно
+                // console.log('текущий макс', this.max_item_name, this.max_item_price); // возвращает верно
+                if (index !== -1) {
+                    for (const item of this.items) {
+                        if (item.price > this.max_item_price)
+                            this.max_item_price = item.price;
+                    }
+                }
+                if (index !== -1) {
+                    for (const item of this.items) {
+                        if (item.price === this.max_item_price)
+                            this.max_item_name = item.name;
+                    }
+                }
             }
+
         }
+
+        console.log('max:', this.max_item_name, this.max_item_price);
         this.priceall -= item.price;
         return this.priceall;
     }
-    update_max_price(item){
-        const index = this.items.indexOf(item);
-        for (const item of this.items) {
-            if (item.price > this.max_item_price)
-                this.max_item_price = item.price;
-        }
-        console.log ('new max price:',this.max_item_price);
+
+    update_max_price(item) {
         return this.max_item_price;
     }
-    update_max_name(item){
-        const index = this.items.indexOf(item);
-        for (const item of this.items) {
-            if (item.price === this.max_item_price)
-                this.max_item_name = item.name;
-        }
-        console.log('new max name',  this.max_item_name);
+
+    update_max_name(item) {
+        console.log(this.items.lastIndexOf());
         return this.max_item_name;
     }
+
+    // update_max_price(item){
+    //     const index = this.items.indexOf(item);
+    //     for (const item of this.items) {
+    //         if (item.price > this.max_item_price)
+    //             this.max_item_price = item.price;
+    //     }
+    //     console.log ('new max price:',this.max_item_price);
+    //     console.log('ostalos',index);
+    //     return this.max_item_price;
+    // }
+    // update_max_name(item){
+    //     const index = this.items.indexOf(item);
+    //     for (const item of this.items) {
+    //         if (item.price === this.max_item_price)
+    //             this.max_item_name = item.name;
+    //     }
+    //     console.log('new max name',  this.max_item_name);
+    //     return this.max_item_name;
+    // }
     max_price(item) {
         const index = this.items.indexOf(item);
         for (const item of this.items) {

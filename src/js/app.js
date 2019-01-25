@@ -8,6 +8,7 @@ const priceEl = document.querySelector('#price-list');
 const totalpriceEl = document.getElementById('total_price');
 const taskList = new TaskList();
 
+
 formEl.addEventListener('submit', function (evt) {
     // есть на некоторые события дефолтное поведение
     // click - переход
@@ -17,7 +18,7 @@ formEl.addEventListener('submit', function (evt) {
     const price = parseInt(addpriceEl.value);
     const liEl = document.createElement('li');
     const errorEl = document.getElementById('error-box');
-    // todo: потестить валидатор
+    // todo: добавить функцию вырезания пробелов
     if (isNaN(addpriceEl.value)) {
         errorEl.classList.remove('invisible');
         return;
@@ -62,20 +63,29 @@ formEl.addEventListener('submit', function (evt) {
     removeEl.className = 'btn btn-outline-danger btn-sm float-right';
     removeEl.textContent = 'Удалить';
 
+    // rebuild(maxTextEl);
 
     removeEl.addEventListener('click', function (evt) {
         liEl.remove(); // не везде работает
         totalpriceEl.textContent = taskList.remove(task);
         maxPriceEl.textContent = taskList.update_max_price(task);
         maxNameEl.textContent = taskList.update_max_name(task);
-
     });
-
     // Самая трудоемкая часть синхронизация между DOM и памятью
-
     liEl.appendChild(priceEl);
     liEl.appendChild(removeEl); //  в скобки берется тот, кого берут
     listEl.appendChild(liEl); // метод взять ребенка
+    // todo:
+    function rebuild(container) {
+        container.innerHTML = ''; // вырезать всех детей
 
+            const maxTextEl = document.createElement('badge');
+            maxTextEl.className = 'badge badge-warning ';
 
+            maxTextEl.innerHTML = `
+       <h3><span class="badge badge-secondary " id="max_name"></span></h3>
+        `;
+            container.appendChild(maxTextEl);
+
+    }
 });
