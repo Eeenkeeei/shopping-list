@@ -38,13 +38,13 @@ export class TaskList {
         if (index !== -1) {
             this.items.splice(index, 1);
         }
-        this.max_item_price = this.max_price();
-        this.max_item_name = this.max_name();
+        this.max_item_price = this.maxPrice();
+        this.max_item_name = this.maxName();
         this.priceall -= item.price;
         return this.priceall;
     }
 
-    max_price() {
+    maxPrice() {
         let result = 0;
         for (const item of this.items) {
             if (item.price > result) {
@@ -55,7 +55,7 @@ export class TaskList {
         return this.max_item_price;
     }
 
-    max_name() {
+    maxName() {
         for (const item of this.items) {
             if (this.max_item_price === item.price) {
                 this.max_item_name = item.name;
