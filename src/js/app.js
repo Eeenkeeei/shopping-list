@@ -1,4 +1,5 @@
 import {PurchaseList, Purchase} from './lib.js';
+import {PurchaseLocalStorage} from "./storage.js";
 
 const formEl = document.querySelector('#task-form'); // через # id
 const nameEl = document.querySelector('#task-name');
@@ -6,10 +7,10 @@ const addPriceEl = document.querySelector('#task-price');
 const listEl = document.querySelector('#task-list');
 
 const totalPriceEl = document.getElementById('total_price');
-const purchaseList = new PurchaseList();
+const purchaseList = new PurchaseList(new PurchaseLocalStorage);
 
 
-formEl.addEventListener('submit', function (evt) {
+formEl.addEventListener('submit',  (evt) => {
     evt.preventDefault();
     const name = nameEl.value;
     const price = parseInt(addPriceEl.value);
