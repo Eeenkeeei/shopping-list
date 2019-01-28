@@ -10,15 +10,12 @@ const taskList = new TaskList();
 
 
 formEl.addEventListener('submit', function (evt) {
-    // есть на некоторые события дефолтное поведение
-    // click - переход
-    // при отправке - страница перезагружается, форма отправляется на сервер
-    evt.preventDefault(); // просим браузер не делать то, что он делает по умолчанию (обновление стр)
+    evt.preventDefault();
     const name = nameEl.value;
     const price = parseInt(addpriceEl.value);
     const liEl = document.createElement('li');
     const errorEl = document.getElementById('error-box');
-    // todo: добавить функцию вырезания пробелов
+    addpriceEl.value = addpriceEl.value.trim();
     if (isNaN(addpriceEl.value)) {
         errorEl.classList.remove('invisible');
         return;
@@ -35,22 +32,22 @@ formEl.addEventListener('submit', function (evt) {
         errorEl.classList.remove('invisible');
         return;
     }
-
     const task = new Task(name, price);
     totalpriceEl.textContent = taskList.add(task);
     errorEl.classList.add('invisible');
     nameEl.value = '';
     addpriceEl.value = '';
 
-
+    const helloTextEl = document.getElementById('hello-text');
+    helloTextEl.classList.add('invisible');
     const totalTextEl = document.getElementById('total_text');
     totalTextEl.classList.remove('invisible');
     const maxTextEl = document.getElementById('max_text');
     maxTextEl.classList.remove('invisible');
     const maxPriceEl = document.getElementById('max_price');
-    maxPriceEl.textContent = taskList.max_price(task);
+    maxPriceEl.textContent = taskList.max_price();
     const maxNameEl = document.getElementById('max_name');
-    maxNameEl.textContent = taskList.max_name(task);
+    maxNameEl.textContent = taskList.max_name();
     //  создали элемент
     const priceEl = document.createElement('span');
     // подставили
@@ -65,17 +62,28 @@ formEl.addEventListener('submit', function (evt) {
 
     // rebuild(maxTextEl);
 
-    removeEl.addEventListener('click', function (evt) {
+    removeEl.addEventListener('click', (evt) => {
         liEl.remove(); // не везде работает
         totalpriceEl.textContent = taskList.remove(task);
-        maxPriceEl.textContent = taskList.update_max_price(task);
-        maxNameEl.textContent = taskList.update_max_name(task);
+        maxPriceEl.textContent = taskList.max_price();
+        maxNameEl.textContent = taskList.max_name();
+        if (taskList.priceall === 0){
+            maxTextEl.classList.add('invisible');
+            maxPriceEl.classList.add('invisible');
+            maxNameEl.classList.add('invisible');
+            totalpriceEl.classList.add('invisible');
+            totalTextEl.classList.add('invisible');
+            helloTextEl.classList.remove('invisible');
+        }
+
     });
     // Самая трудоемкая часть синхронизация между DOM и памятью
     liEl.appendChild(priceEl);
     liEl.appendChild(removeEl); //  в скобки берется тот, кого берут
     listEl.appendChild(liEl); // метод взять ребенка
+
     // todo:
+
     function rebuild(container) {
         container.innerHTML = ''; // вырезать всех детей
 

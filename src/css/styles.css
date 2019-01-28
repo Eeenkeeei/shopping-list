@@ -4,6 +4,19 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+#hello-text {
+    margin-left: 20%;
+
+}
+
+#add-item{
+    margin-left: 35%;
+}
+
+#price-list {
+    right: -500px;
+}
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;

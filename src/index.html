@@ -15,19 +15,26 @@
     <div class="row justify-content-center"> <!--.row>.col-4 EMMET -->
 
         <div class="col-10">
+            <p><h3><span class="badge badge-success" id="hello-text">Введите название и стоимость товара</span></h3></p>
             <form class="form-inline" id="task-form">
+
                 <h3><span class="badge badge-secondary">Название товара</span></h3>
                 <div class="form-group mb-2">
                     <label for="task-name" class="sr-only">task-name</label>
                     <input type="text"  class="form-control" id="task-name">
                 </div>
+
                 <h3><span class="badge badge-secondary">Стоимость товара</span></h3>
+
                 <div class="form-group mb-2">
                     <label for="task-name" class="sr-only">task-name</label>
                     <input type="text"  class="form-control" id="task-price">
                 </div>
-                <button type="submit" class="btn btn-outline-primary mb-2">Добавить товар</button>
+
+                <button type="submit" class="btn btn-outline-primary mb-2" id="add-item">Добавить товар</button>
+
             </form>
+
             <h3><span class="badge badge-danger invisible" id="error-box">Введите корректное значение</span></h3>
             <ul class="list-group" id="task-list">
             </ul>
@@ -38,7 +45,7 @@
 </div>
 
 <div class="container">
-    <div class="row justify-content-center"> <!--.row>.col-4 EMMET -->
+    <div class="row justify-content-center"> <!--.row>.col-8 EMMET -->
         <div class="col-8">
             <h3><span class="badge badge-secondary invisible" id="total_text">Общая стоимость:</span></h3>
             <h3><span class="badge badge-success " id="total_price"></span></h3>

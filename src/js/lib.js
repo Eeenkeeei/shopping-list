@@ -6,19 +6,15 @@ export class Task {
     }
 }
 
-export class TaskList { // несмотря на то, что будет только один
+export class TaskList {
     constructor() {
         this.items = [];
-        this.max_items = [];
         this.priceall = 0;
         this.max_item_price = 0;
         this.max_item_name = '';
-        this.deleted_item_name = '';
-        this.deleted_item_price = 0;
     }
-
     add(item) {
-        this.items.push(item); // добавление в конец
+        this.items.push(item);
         let totalPrice = 0;
         for (const item of this.items) {
             totalPrice += item.price;
@@ -27,7 +23,7 @@ export class TaskList { // несмотря на то, что будет тол�
         return this.priceall;
     }
 
-    // todo:
+    // todo: одинаковая максимальная сумма товаров
     // add_more_max(item){
     //     const index = this.items.indexOf(item);
     //     for (const item of this.items) {
@@ -41,57 +37,29 @@ export class TaskList { // несмотря на то, что будет тол�
         const index = this.items.indexOf(item);
         if (index !== -1) {
             this.items.splice(index, 1);
-            if (item.price === this.max_item_price) {
-                this.deleted_item_price = item.price;
-                this.deleted_item_name = item.name;
-                // console.log('name deleted:',this.deleted_item_name); // возвращает верно
-                // console.log('price deleted:',this.deleted_item_price); // возвращает верно
-                // console.log('текущий макс', this.max_item_name, this.max_item_price); // возвращает верно
-                if (index !== -1) {
-                    for (const item of this.items) {
-                        if (item.price > this.max_item_price) {
-                            this.max_item_price = item.price;
-                        }
-                    }
-                }
-                if (index !== -1) {
-                    for (const item of this.items) {
-                        if (item.price === this.max_item_price)
-                            this.max_item_name = item.name;
-                    }
-                }
-            }
-
         }
-        // todo: обновление состояния если общая сумма равна 0
-        console.log('max:', this.max_item_name, this.max_item_price);
+        this.max_item_price = this.max_price();
+        this.max_item_name = this.max_name();
         this.priceall -= item.price;
         return this.priceall;
     }
 
-    update_max_price(item) {
-        return this.max_item_price;
-    }
-
-    update_max_name(item) {
-        return this.max_item_name;
-    }
-
-    max_price(item) {
-        const index = this.items.indexOf(item);
+    max_price() {
+        let result = 0;
         for (const item of this.items) {
-            console.log('this. index add', index);
-            if (item.price > this.max_item_price)
-                this.max_item_price = item.price;
+            if (item.price > result) {
+                result = item.price;
+            }
         }
+        this.max_item_price = result;
         return this.max_item_price;
     }
 
-    max_name(item) {
-        const index = this.items.indexOf(item);
+    max_name() {
         for (const item of this.items) {
-            if (item.price === this.max_item_price)
+            if (this.max_item_price === item.price) {
                 this.max_item_name = item.name;
+            }
         }
         return this.max_item_name;
     }
