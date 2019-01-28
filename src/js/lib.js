@@ -1,4 +1,4 @@
-export class Task {
+export class Purchase {
     constructor(name, price) {
         this.name = name;
         this.price = price;
@@ -6,7 +6,7 @@ export class Task {
     }
 }
 
-export class TaskList {
+export class PurchaseList {
     constructor() {
         this.items = [];
         this.priceall = 0;

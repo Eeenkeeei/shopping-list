@@ -1,4 +1,4 @@
-import {TaskList, Task} from './lib.js';
+import {PurchaseList, Purchase} from './lib.js';
 
 const formEl = document.querySelector('#task-form'); // через # id
 const nameEl = document.querySelector('#task-name');
@@ -6,7 +6,7 @@ const addPriceEl = document.querySelector('#task-price');
 const listEl = document.querySelector('#task-list');
 
 const totalPriceEl = document.getElementById('total_price');
-const taskList = new TaskList();
+const purchaseList = new PurchaseList();
 
 
 formEl.addEventListener('submit', function (evt) {
@@ -34,8 +34,8 @@ formEl.addEventListener('submit', function (evt) {
         return;
     }
 
-    const task = new Task(name, price);
-    totalPriceEl.textContent = taskList.add(task);
+    const product = new Purchase(name, price);
+    totalPriceEl.textContent = purchaseList.add(product);
     errorEl.classList.add('invisible');
     nameEl.value = '';
     addPriceEl.value = '';
@@ -47,14 +47,14 @@ formEl.addEventListener('submit', function (evt) {
     const maxTextEl = document.getElementById('max_text');
     maxTextEl.classList.remove('invisible');
     const maxPriceEl = document.getElementById('max_price');
-    maxPriceEl.textContent = taskList.maxPrice();
+    maxPriceEl.textContent = purchaseList.maxPrice();
     const maxNameEl = document.getElementById('max_name');
-    maxNameEl.textContent = taskList.maxName();
+    maxNameEl.textContent = purchaseList.maxName();
     //  создали элемент
     const priceEl = document.createElement('span');
     // подставили
-    liEl.textContent = task.name;
-    priceEl.textContent = task.price;
+    liEl.textContent = product.name;
+    priceEl.textContent = product.price;
     // пока у элемента нет родителя, он не отображается
     liEl.className = 'list-group-item float-left';
     priceEl.className = 'badge badge-success';
@@ -64,21 +64,24 @@ formEl.addEventListener('submit', function (evt) {
 
     removeEl.addEventListener('click', (evt) => {
         liEl.remove(); // не везде работает
-        totalPriceEl.textContent = taskList.remove(task);
-        maxPriceEl.textContent = taskList.maxPrice();
-        maxNameEl.textContent = taskList.maxName();
+        totalPriceEl.textContent = purchaseList.remove(product);
+        maxPriceEl.textContent = purchaseList.maxPrice();
+        maxNameEl.textContent = purchaseList.maxName();
         setInvisible();
 
     });
 
     function setInvisible () {
-        if (taskList.priceall === 0){
+        if (purchaseList.priceall === 0){
             maxTextEl.classList.add('invisible');
             maxPriceEl.classList.add('invisible');
             maxNameEl.classList.add('invisible');
             totalPriceEl.classList.add('invisible');
             totalTextEl.classList.add('invisible');
             helloTextEl.classList.remove('invisible');
+            errorEl.classList.add('invisible');
+            nameEl.value = '';
+            addPriceEl.value = '';
         }
     }
 
