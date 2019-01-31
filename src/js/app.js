@@ -32,7 +32,26 @@ formEl.addEventListener('submit', (evt) => {
 
     const name = nameEl.value;
     const price = parseInt(priceEl.value);
-    // TODO: валидация
+    const errorEl = document.getElementById('error-box');
+    // todo: добавить систему флага для обновления состояния
+    priceEl.value = priceEl.value.trim();
+    if (isNaN(priceEl.value)) {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+    if (priceEl.value < 0) {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+    if (priceEl.value === '') {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+    if (priceEl.value === '0') {
+        errorEl.classList.remove('invisible');
+        return;
+    }
+
     const product = new Purchase(name, price);
     purchaseList.add(product);
 
@@ -48,8 +67,8 @@ function rebuildTree(container, list) {
         liEl.className = 'list-group-item col-10';
 
         liEl.innerHTML = `
-            <span data-id="text">${item.name}</span>
-            <span data-id="text">Стоимость: ${item.price} р. </span>
+            <span data-id="text" class="badge badge-info"><h6>Наименование: ${item.name}</h6></span>
+            <span data-id="text1" class="badge badge-success"><h6>Стоимость: ${item.price} р.</h6> </span>
             <button data-id="remove" class="btn btn-danger btn-sm float-right">Удалить</button>
         `;
 
@@ -64,17 +83,25 @@ function rebuildTree(container, list) {
         container.appendChild(liEl);
 
     }
-    const item = list.items;
+    let totalPrice = 0;
+    let maxItemPrice = 0;
+    let maxItemName = '';
+    // todo: провести тесты на максимальном значении
+    for (const item of list.items) {
+        totalPrice = purchaseList.sum(item);
+        maxItemPrice = purchaseList.maxPrice();
+        maxItemName = purchaseList.storage.max_item_name;
+    }
+
     const textBox = document.createElement('span');
     textBox.className = 'badge  col-10';
-    let totalPrice = purchaseList.sum(item);
     textBox.innerHTML = `
             <p></p>
             <h3><span class="badge badge-secondary" data-id="total_text">Общая стоимость:</span></h3>
             <h3><span class="badge badge-success " data-id="total_price">${totalPrice}</span></h3>
             <h3><span class="badge badge-secondary" data-id="max_text">Самый дорогой товар: </span></h3>
-            <h3><span class="badge badge-warning " data-id="max_name"></span></h3>
-            <h3><span class="badge badge-warning" data-id="max_price"></span></h3>
+            <h3><span class="badge badge-warning " data-id="max_name">${maxItemName}</span></h3>
+            <h3><span class="badge badge-warning" data-id="max_price">${maxItemPrice}</span></h3>
     `;
     container.appendChild(textBox);
 

@@ -25,7 +25,7 @@ export class PurchaseLocalStorage {
             this.save();
         }
         this.priceall = totalPrice;
-        console.log(this.priceall);
+
         return this.priceall;
     }
 
@@ -46,6 +46,7 @@ export class PurchaseLocalStorage {
         for (const item of this.items) {
             if (item.price > result) {
                 result = item.price;
+                this.max_item_name = item.name;
                 this.save();
             }
         }

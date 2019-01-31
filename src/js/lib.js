@@ -21,6 +21,7 @@ export class PurchaseList {
 
     sum(item){
         this.storage.sum(item);
+        return this.storage.priceall;
     }
 
     remove(item) {
@@ -29,10 +30,12 @@ export class PurchaseList {
 
     maxPrice() {
        this.storage.maxPrice();
+       return this.storage.max_item_price;
     }
 
     maxName() {
         this.storage.maxName();
+        return this.storage.max_item_name;
     }
 
 }
