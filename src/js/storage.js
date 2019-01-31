@@ -1,12 +1,12 @@
 export class PurchaseLocalStorage {
     constructor() {
-        const items = this.items = JSON.parse(localStorage.getItem('product'));
+        const items = this.items = JSON.parse(localStorage.getItem('products'));
         if (items !== null) {
             this.items = items;
         } else {
             this.items = [];
         }
-        this.items = [];
+
         this.priceall = 0;
         this.max_item_price = 0;
         this.max_item_name = '';
@@ -15,12 +15,17 @@ export class PurchaseLocalStorage {
 
     add(item) {
         this.items.push(item);
+        this.save();
+    }
+
+    sum(item){
         let totalPrice = 0;
         for (const item of this.items) {
             totalPrice += item.price;
             this.save();
         }
         this.priceall = totalPrice;
+        console.log(this.priceall);
         return this.priceall;
     }
 
@@ -59,6 +64,7 @@ export class PurchaseLocalStorage {
         return this.max_item_name;
     }
     save() {
-        localStorage.setItem('product', JSON.stringify(this.items)) // stringify - преобразование объекта в строку
+        localStorage.setItem('products', JSON.stringify(this.items)) // stringify - преобразование объекта в строку
     }
 }
+

@@ -19,6 +19,10 @@ export class PurchaseList {
        this.storage.add(item);
     }
 
+    sum(item){
+        this.storage.sum(item);
+    }
+
     remove(item) {
        this.storage.remove(item);
     }

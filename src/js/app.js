@@ -1,107 +1,82 @@
 import {PurchaseList, Purchase} from './lib.js';
 import {PurchaseLocalStorage} from "./storage.js";
 
-const formEl = document.querySelector('#task-form'); // через # id
+const formEl = document.querySelector('#task-form');
 const nameEl = document.querySelector('#task-name');
-const addPriceEl = document.querySelector('#task-price');
 const listEl = document.querySelector('#task-list');
+const priceEl = document.querySelector('#task-price');
 
-const totalPriceEl = document.getElementById('total_price');
-const purchaseList = new PurchaseList(new PurchaseLocalStorage);
+const purchaseList = new PurchaseList(new PurchaseLocalStorage());
 
+rebuildTree(listEl, purchaseList);
 
-formEl.addEventListener('submit',  (evt) => {
+nameEl.addEventListener('input', (evt) => {
     evt.preventDefault();
-    const name = nameEl.value;
-    const price = parseInt(addPriceEl.value);
-    const liEl = document.createElement('li');
-    const errorEl = document.getElementById('error-box');
-
-    addPriceEl.value = addPriceEl.value.trim();
-    if (isNaN(addPriceEl.value)) {
-        errorEl.classList.remove('invisible');
-        return;
-    }
-    if (addPriceEl.value < 0) {
-        errorEl.classList.remove('invisible');
-        return;
-    }
-    if (addPriceEl.value === '') {
-        errorEl.classList.remove('invisible');
-        return;
-    }
-    if (addPriceEl.value === '0') {
-        errorEl.classList.remove('invisible');
-        return;
-    }
-
-    const product = new Purchase(name, price);
-    totalPriceEl.textContent = purchaseList.add(product);
-    errorEl.classList.add('invisible');
-    nameEl.value = '';
-    addPriceEl.value = '';
-
-    const helloTextEl = document.getElementById('hello-text');
-    helloTextEl.classList.add('invisible');
-    const totalTextEl = document.getElementById('total_text');
-    totalTextEl.classList.remove('invisible');
-    const maxTextEl = document.getElementById('max_text');
-    maxTextEl.classList.remove('invisible');
-    const maxPriceEl = document.getElementById('max_price');
-    maxPriceEl.textContent = purchaseList.maxPrice();
-    const maxNameEl = document.getElementById('max_name');
-    maxNameEl.textContent = purchaseList.maxName();
-    //  создали элемент
-    const priceEl = document.createElement('span');
-    // подставили
-    liEl.textContent = product.name;
-    priceEl.textContent = product.price;
-    // пока у элемента нет родителя, он не отображается
-    liEl.className = 'list-group-item float-left';
-    priceEl.className = 'badge badge-success';
-    const removeEl = document.createElement('button');
-    removeEl.className = 'btn btn-outline-danger btn-sm float-right';
-    removeEl.textContent = 'Удалить';
-
-    removeEl.addEventListener('click', (evt) => {
-        liEl.remove(); // не везде работает
-        totalPriceEl.textContent = purchaseList.remove(product);
-        maxPriceEl.textContent = purchaseList.maxPrice();
-        maxNameEl.textContent = purchaseList.maxName();
-        setInvisible();
-
-    });
-
-    function setInvisible () {
-        if (purchaseList.priceall === 0){
-            maxTextEl.classList.add('invisible');
-            maxPriceEl.classList.add('invisible');
-            maxNameEl.classList.add('invisible');
-            totalPriceEl.classList.add('invisible');
-            totalTextEl.classList.add('invisible');
-            helloTextEl.classList.remove('invisible');
-            errorEl.classList.add('invisible');
-            nameEl.value = '';
-            addPriceEl.value = '';
-        }
-    }
-
-    liEl.appendChild(priceEl);
-    liEl.appendChild(removeEl); //  в скобки берется тот, кого берут
-    listEl.appendChild(liEl); // метод взять ребенка
-
-    // todo:
-
-    function rebuild(container) {
-        container.innerHTML = ''; // вырезать всех детей
-
-            const maxTextEl = document.createElement('badge');
-            maxTextEl.className = 'badge badge-warning ';
-
-            maxTextEl.innerHTML = `
-       <h3><span class="badge badge-secondary " id="max_name"></span></h3>
-        `;
-            container.appendChild(maxTextEl);
-
+    if (nameEl.value === '') {
+        nameEl.classList.add('error')
+    } else {
+        nameEl.classList.remove('error');
     }
 });
+
+const contextMenuListener = (evt) => {
+    evt.preventDefault();
+};
+
+nameEl.addEventListener('contextmenu', contextMenuListener);
+nameEl.removeEventListener('contextmenu', contextMenuListener);
+
+
+formEl.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const name = nameEl.value;
+    const price = parseInt(priceEl.value);
+    // TODO: валидация
+    const product = new Purchase(name, price);
+    purchaseList.add(product);
+
+    nameEl.value = '';
+    priceEl.value = '';
+    rebuildTree(listEl, purchaseList);
+});
+
+function rebuildTree(container, list) {
+    container.innerHTML = '';
+    for (const item of list.items) {
+        const liEl = document.createElement('li');
+        liEl.className = 'list-group-item col-10';
+
+        liEl.innerHTML = `
+            <span data-id="text">${item.name}</span>
+            <span data-id="text">Стоимость: ${item.price} р. </span>
+            <button data-id="remove" class="btn btn-danger btn-sm float-right">Удалить</button>
+        `;
+
+
+        const removeEl = liEl.querySelector('[data-id=remove]');
+        removeEl.addEventListener('click', (evt) => {
+            purchaseList.remove(item);
+            rebuildTree(container, list);
+
+        });
+
+        container.appendChild(liEl);
+
+    }
+    const item = list.items;
+    const textBox = document.createElement('span');
+    textBox.className = 'badge  col-10';
+    let totalPrice = purchaseList.sum(item);
+    textBox.innerHTML = `
+            <p></p>
+            <h3><span class="badge badge-secondary" data-id="total_text">Общая стоимость:</span></h3>
+            <h3><span class="badge badge-success " data-id="total_price">${totalPrice}</span></h3>
+            <h3><span class="badge badge-secondary" data-id="max_text">Самый дорогой товар: </span></h3>
+            <h3><span class="badge badge-warning " data-id="max_name"></span></h3>
+            <h3><span class="badge badge-warning" data-id="max_price"></span></h3>
+    `;
+    container.appendChild(textBox);
+
+}
+
