@@ -28,3 +28,29 @@
 #total_text{
     margin-left: 90px;
 }
+
+#task-name {
+    position: relative;
+    left: 5px;
+
+}
+
+#task-price {
+    position: relative;
+    left: 15px;
+}
+
+#task-price-error {
+    border-color: red !important;
+}
+
+#item-price-text {
+    position: relative;
+    left: 10px;
+    height: 37px;
+}
+
+#item-name-text {
+    position: relative;
+    height: 37px;
+}

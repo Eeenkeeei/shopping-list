@@ -16,14 +16,17 @@ formEl.addEventListener('submit', (evt) => {
 
     const name = nameEl.value;
     const price = parseInt(priceEl.value);
-    const errorEl = document.querySelector('#error-box');
+    const taskNameEl = document.querySelector('#task-name');
+    const taskPriceEl = document.querySelector('#task-price');
+
 
     priceEl.value = priceEl.value.trim();
 
     let ifError = false;
-
+    taskNameEl.classList.add('nameError') ;
     if (nameEl.value === ''){
         ifError = true;
+
     }
 
     if (isNaN(priceEl.value)) {
@@ -41,8 +44,7 @@ formEl.addEventListener('submit', (evt) => {
     }
     if (ifError === true) {
         addButton.className = "btn btn-outline-danger mb-3";
-        nameEl.value = '';
-        priceEl.value = '';
+
         return;
     }
         addButton.className = "btn btn-outline-primary mb-3";
@@ -97,10 +99,10 @@ function rebuildTree(container, list) {
             <p></p>
             <button data-id="removeAll" class="btn btn-danger btn-sm float-right">Удалить все</button>
             <h3><span class="badge badge-secondary" data-id="total_text" id="total_text">Общая стоимость:</span></h3>
-            <h3><span class="badge badge-success " data-id="total_price">${totalPrice}</span></h3>
+            <h3><span class="badge badge-success " data-id="total_price">${totalPrice} p.</span></h3>
             <h3><span class="badge badge-secondary" data-id="max_text">Самый дорогой товар: </span></h3>
-            <h3><span class="badge badge-warning " data-id="max_name">${maxItemName}</span></h3>
-            <h3><span class="badge badge-warning" data-id="max_price">${maxItemPrice}</span></h3>
+            <h3><span class="badge badge-warning " data-id="max_name">Наименование: ${maxItemName}</span></h3>
+            <h3><span class="badge badge-warning" data-id="max_price">Стоимость: ${maxItemPrice} p.</span></h3>
     `;
 
         const removeAllEl = textBox.querySelector('[data-id=removeAll]');
@@ -110,6 +112,5 @@ function rebuildTree(container, list) {
         });
         container.appendChild(textBox);
     }
-
 }
 
