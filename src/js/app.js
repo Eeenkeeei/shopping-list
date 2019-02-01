@@ -22,35 +22,59 @@ formEl.addEventListener('submit', (evt) => {
 
     priceEl.value = priceEl.value.trim();
 
-    let ifError = false;
-    taskNameEl.classList.add('nameError') ;
+    let ifErrorName = false;
+    let ifError= false;
+
     if (nameEl.value === ''){
         ifError = true;
+        ifErrorName = true;
+        taskNameEl.classList.add('input-form-error') ;
+        taskPriceEl.classList.remove('input-form-error') ;
 
     }
 
     if (isNaN(priceEl.value)) {
         ifError = true;
+        taskPriceEl.classList.add('input-form-error') ;
+        if (ifErrorName === false) {
+            taskNameEl.classList.remove('input-form-error') ;
+        }
     }
+
     if (priceEl.value < 0) {
         ifError = true;
+        taskPriceEl.classList.add('input-form-error') ;
+        if (ifErrorName === false) {
+            taskNameEl.classList.remove('input-form-error') ;
+        }
     }
+
     if (priceEl.value === '') {
         ifError = true;
-
+        taskPriceEl.classList.add('input-form-error') ;
+        if (ifErrorName === false) {
+            taskNameEl.classList.remove('input-form-error') ;
+        }
     }
+
     if (priceEl.value === '0') {
         ifError = true;
+        taskPriceEl.classList.add('input-form-error') ;
+        if (ifErrorName === false) {
+            taskNameEl.classList.remove('input-form-error') ;
+        }
     }
-    if (ifError === true) {
-        addButton.className = "btn btn-outline-danger mb-3";
 
+    if (ifError === ifError === true) {
+        addButton.className = "btn btn-outline-danger mb-3";
         return;
     }
+
         addButton.className = "btn btn-outline-primary mb-3";
+        taskNameEl.classList.remove('input-form-error') ;
+        taskPriceEl.classList.remove('input-form-error') ;
         const product = new Purchase(name, price);
         purchaseList.add(product);
-
         nameEl.value = '';
         priceEl.value = '';
         rebuildTree(listEl, purchaseList);

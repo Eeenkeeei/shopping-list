@@ -32,13 +32,22 @@
 #task-name {
     position: relative;
     left: 5px;
-
 }
+
+.input-form-error {
+    border-color: red;
+    transition-duration: 1s;
+}
+:active :hover :focus {
+    transition-duration: 1s;
+}
+
 
 #task-price {
     position: relative;
     left: 15px;
 }
+
 
 #task-price-error {
     border-color: red !important;
