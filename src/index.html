@@ -15,27 +15,31 @@
     <div class="row justify-content-center"> <!--.row>.col-4 EMMET -->
 
         <div class="col-10">
-            <p><h3><span class="badge badge-success" id="hello-text">Введите название и стоимость товара</span></h3></p>
+            <p>
+            <h3><span class="badge badge-success" id="hello-text">Введите название и стоимость товара</span></h3></p>
             <form class="form-inline" id="task-form">
-
-                <h3><span class="badge badge-secondary">Название товара</span></h3>
+                <div></div>
+                <h3><span class="badge badge-secondary" id="namingItemText">Название товара</span></h3>
                 <div class="form-group mb-2">
                     <label for="task-name" class="sr-only">task-name</label>
-                    <input type="text"  class="form-control" id="task-name">
+                    <input type="text" class="form-control" id="task-name">
                 </div>
 
-                <h3><span class="badge badge-secondary">Стоимость товара</span></h3>
+                <div>
+                    <h3><span class="badge badge-secondary">Стоимость товара</span></h3>
+                </div>
 
                 <div class="form-group mb-2">
                     <label for="task-name" class="sr-only">task-price</label>
-                    <input type="text"  class="form-control" id="task-price">
+                    <input type="text" class="form-control" id="task-price">
                 </div>
-
-                <button type="submit" class="btn btn-outline-primary mb-2" id="add-item">Добавить товар</button>
-
+                <div id="error-box" class="badge-danger"></div>
+                <div class="addButton">
+                    <button type="submit" class="btn btn-outline-primary mb-2" id="add-item">Добавить товар</button>
+                </div>
             </form>
 
-            <h3><span class="badge badge-danger invisible" id="error-box">Введите корректное значение</span></h3>
+
             <ul class="list-group" id="task-list">
             </ul>
             <ul class="list-group" id="price-list">

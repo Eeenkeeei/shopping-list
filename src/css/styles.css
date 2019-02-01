@@ -17,6 +17,26 @@
     right: -500px;
 }
 
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff
+}
+
+#add-item {
+    margin-left: 310px;
+}
+
+#error-box {
+
+}
+
+#task-list {
+    padding-top: 10px;
+    width: 940px;
+}
+#namingItemText {
+
+}
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -2748,7 +2768,7 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: #007bff;
+    color: #ff1844;
     background-color: transparent
 }
 

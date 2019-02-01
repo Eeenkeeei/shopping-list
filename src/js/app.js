@@ -7,24 +7,7 @@ const listEl = document.querySelector('#task-list');
 const priceEl = document.querySelector('#task-price');
 
 const purchaseList = new PurchaseList(new PurchaseLocalStorage());
-
 rebuildTree(listEl, purchaseList);
-
-nameEl.addEventListener('input', (evt) => {
-    evt.preventDefault();
-    if (nameEl.value === '') {
-        nameEl.classList.add('error')
-    } else {
-        nameEl.classList.remove('error');
-    }
-});
-
-const contextMenuListener = (evt) => {
-    evt.preventDefault();
-};
-
-nameEl.addEventListener('contextmenu', contextMenuListener);
-nameEl.removeEventListener('contextmenu', contextMenuListener);
 
 
 formEl.addEventListener('submit', (evt) => {
@@ -32,32 +15,43 @@ formEl.addEventListener('submit', (evt) => {
 
     const name = nameEl.value;
     const price = parseInt(priceEl.value);
-    const errorEl = document.getElementById('error-box');
-    // todo: добавить систему флага для обновления состояния
+    const errorEl = document.querySelector('#error-box');
+
     priceEl.value = priceEl.value.trim();
+
+    let ifError = false;
+
+    if (nameEl.value === ''){
+        ifError = true;
+    }
+
     if (isNaN(priceEl.value)) {
-        errorEl.classList.remove('invisible');
-        return;
+        ifError = true;
     }
     if (priceEl.value < 0) {
-        errorEl.classList.remove('invisible');
-        return;
+        ifError = true;
     }
     if (priceEl.value === '') {
-        errorEl.classList.remove('invisible');
-        return;
+        ifError = true;
+
     }
     if (priceEl.value === '0') {
-        errorEl.classList.remove('invisible');
+        ifError = true;
+    }
+    if (ifError === true) {
+        checkErrors(errorEl);
+        nameEl.value = '';
+        priceEl.value = '';
         return;
     }
+        removeErrors(errorEl);
+        const product = new Purchase(name, price);
+        purchaseList.add(product);
 
-    const product = new Purchase(name, price);
-    purchaseList.add(product);
+        nameEl.value = '';
+        priceEl.value = '';
+        rebuildTree(listEl, purchaseList);
 
-    nameEl.value = '';
-    priceEl.value = '';
-    rebuildTree(listEl, purchaseList);
 });
 
 function rebuildTree(container, list) {
@@ -83,27 +77,63 @@ function rebuildTree(container, list) {
         container.appendChild(liEl);
 
     }
+
     let totalPrice = 0;
     let maxItemPrice = 0;
     let maxItemName = '';
-    // todo: провести тесты на максимальном значении
     for (const item of list.items) {
         totalPrice = purchaseList.sum(item);
+
+        // todo: переделать для стоимости и имени
+
         maxItemPrice = purchaseList.maxPrice();
         maxItemName = purchaseList.storage.max_item_name;
     }
-
-    const textBox = document.createElement('span');
-    textBox.className = 'badge  col-10';
-    textBox.innerHTML = `
+    if (totalPrice != 0) {
+        const textBox = document.createElement('span');
+        textBox.className = 'badge col-10';
+        textBox.innerHTML = `
             <p></p>
+            <button data-id="removeAll" class="btn btn-danger btn-sm float-right">Удалить все</button>
             <h3><span class="badge badge-secondary" data-id="total_text">Общая стоимость:</span></h3>
             <h3><span class="badge badge-success " data-id="total_price">${totalPrice}</span></h3>
             <h3><span class="badge badge-secondary" data-id="max_text">Самый дорогой товар: </span></h3>
             <h3><span class="badge badge-warning " data-id="max_name">${maxItemName}</span></h3>
             <h3><span class="badge badge-warning" data-id="max_price">${maxItemPrice}</span></h3>
     `;
-    container.appendChild(textBox);
+
+        const removeAllEl = textBox.querySelector('[data-id=removeAll]');
+        removeAllEl.addEventListener('click', (evt) =>{
+            purchaseList.removeAll();
+            rebuildTree(container, list);
+        });
+        container.appendChild(textBox);
+    }
 
 }
 
+function checkErrors(container) {
+
+container.innerHTML=``;
+    const errorBox = document.createElement('span');
+    errorBox.className = 'badge badge-danger';
+    errorBox.innerHTML = `
+       <div id="error-box">
+    <h3><span class="badge badge-danger" data-id="errorBox">Введите корректное значение</span></h3>
+    </div>
+    `;
+    container.appendChild(errorBox);
+}
+
+// todo: переделать по-человечески
+
+function removeErrors(container) {
+
+    container.innerHTML=``;
+    const errorBox = document.createElement('span');
+
+    errorBox.innerHTML = `
+      
+    `;
+    container.appendChild(errorBox);
+}

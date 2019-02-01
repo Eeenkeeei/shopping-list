@@ -38,4 +38,8 @@ export class PurchaseList {
         return this.storage.max_item_name;
     }
 
+    removeAll(){
+        this.storage.removeAll();
+    }
+
 }

@@ -36,9 +36,13 @@ export class PurchaseLocalStorage {
             this.save();
         }
         this.max_item_price = this.maxPrice();
-        this.max_item_name = this.maxName();
         this.priceall -= item.price;
         return this.priceall;
+    }
+
+    removeAll() {
+        localStorage.clear();
+        console.log('lol');
     }
 
     maxPrice() {
@@ -55,15 +59,6 @@ export class PurchaseLocalStorage {
 
     }
 
-    maxName() {
-        for (const item of this.items) {
-            if (this.max_item_price === item.price) {
-                this.max_item_name = item.name;
-                this.save();
-            }
-        }
-        return this.max_item_name;
-    }
     save() {
         localStorage.setItem('products', JSON.stringify(this.items)) // stringify - преобразование объекта в строку
     }
