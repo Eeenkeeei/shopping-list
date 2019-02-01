@@ -9,6 +9,7 @@ const priceEl = document.querySelector('#task-price');
 const purchaseList = new PurchaseList(new PurchaseLocalStorage());
 rebuildTree(listEl, purchaseList);
 
+const addButton = document.querySelector('#add-item');
 
 formEl.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -95,7 +96,7 @@ function rebuildTree(container, list) {
         textBox.innerHTML = `
             <p></p>
             <button data-id="removeAll" class="btn btn-danger btn-sm float-right">Удалить все</button>
-            <h3><span class="badge badge-secondary" data-id="total_text">Общая стоимость:</span></h3>
+            <h3><span class="badge badge-secondary" data-id="total_text" id="total_text">Общая стоимость:</span></h3>
             <h3><span class="badge badge-success " data-id="total_price">${totalPrice}</span></h3>
             <h3><span class="badge badge-secondary" data-id="max_text">Самый дорогой товар: </span></h3>
             <h3><span class="badge badge-warning " data-id="max_name">${maxItemName}</span></h3>
@@ -114,26 +115,13 @@ function rebuildTree(container, list) {
 
 function checkErrors(container) {
 
-container.innerHTML=``;
-    const errorBox = document.createElement('span');
-    errorBox.className = 'badge badge-danger';
-    errorBox.innerHTML = `
-       <div id="error-box">
-    <h3><span class="badge badge-danger" data-id="errorBox">Введите корректное значение</span></h3>
-    </div>
-    `;
-    container.appendChild(errorBox);
+    addButton.className = "btn btn-outline-danger mb-3";
+
 }
 
 // todo: переделать по-человечески
 
 function removeErrors(container) {
+    addButton.className = "btn btn-outline-primary mb-3";
 
-    container.innerHTML=``;
-    const errorBox = document.createElement('span');
-
-    errorBox.innerHTML = `
-      
-    `;
-    container.appendChild(errorBox);
 }

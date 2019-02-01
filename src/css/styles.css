@@ -4,6 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
 #hello-text {
     margin-left: 20%;
 
@@ -34,9 +35,38 @@
     padding-top: 10px;
     width: 940px;
 }
-#namingItemText {
+
+#total_text{
+    margin-left: 90px;
+}
+
+
+.error {
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+
 
 }
+
+.error:hover {
+    color: #fff !important;
+    border-color: #dc3545 !important;
+    background-color: #dc3545 !important;
+    outline-style: none !important;
+    outline-width: 0px !important;
+    outline-color: none !important;
+
+}
+
+.error:active{
+    color: #fff !important;
+    border-color: #dc3545 !important;
+    background-color: #dc3545 !important;
+    outline-style: none !important;
+    outline-width: 0px !important;
+    outline-color: none !important;
+}
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -249,10 +279,7 @@ button {
     border-radius: 0
 }
 
-button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color
-}
+
 
 button, input, optgroup, select, textarea {
     margin: 0;
