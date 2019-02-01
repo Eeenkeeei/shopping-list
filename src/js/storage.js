@@ -41,8 +41,8 @@ export class PurchaseLocalStorage {
     }
 
     removeAll() {
-        localStorage.clear();
-        console.log('lol');
+        this.items = [];
+        this.save();
     }
 
     maxPrice() {
