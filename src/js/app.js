@@ -40,12 +40,12 @@ formEl.addEventListener('submit', (evt) => {
         ifError = true;
     }
     if (ifError === true) {
-        checkErrors(errorEl);
+        addButton.className = "btn btn-outline-danger mb-3";
         nameEl.value = '';
         priceEl.value = '';
         return;
     }
-        removeErrors(errorEl);
+        addButton.className = "btn btn-outline-primary mb-3";
         const product = new Purchase(name, price);
         purchaseList.add(product);
 
@@ -113,15 +113,3 @@ function rebuildTree(container, list) {
 
 }
 
-function checkErrors(container) {
-
-    addButton.className = "btn btn-outline-danger mb-3";
-
-}
-
-// todo: переделать по-человечески
-
-function removeErrors(container) {
-    addButton.className = "btn btn-outline-primary mb-3";
-
-}
