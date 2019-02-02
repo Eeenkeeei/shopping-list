@@ -65,10 +65,11 @@ formEl.addEventListener('submit', (evt) => {
         }
     }
 
-    if (ifError === ifError === true) {
+    if (ifError === true) {
         addButton.className = "btn btn-outline-danger mb-3";
         return;
     }
+
 
         addButton.className = "btn btn-outline-primary mb-3";
         taskNameEl.classList.remove('input-form-error') ;
