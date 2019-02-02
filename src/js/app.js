@@ -76,7 +76,7 @@ formEl.addEventListener('submit', (evt) => {
         addButton.className = "btn btn-outline-danger mb-3";
         return;
     }
-
+        helloTextEl.classList.remove('hello-text-error');
         helloTextEl.classList.add('hello-text-error-cancel');
         addButton.className = "btn btn-outline-primary mb-3";
         taskNameEl.classList.remove('input-form-error') ;
