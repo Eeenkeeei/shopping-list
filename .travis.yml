@@ -1,7 +1,9 @@
 language: node_js
 node_js:
   - 10
-
+after_success:
+  - mkdir dist
+  - cp -R src/index.html src/js dist
 deploy:
   provider: pages
   skip_cleanup: true
