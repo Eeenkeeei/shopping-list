@@ -33,7 +33,6 @@ formEl.addEventListener('submit', (evt) => {
         ifErrorName = true;
         taskNameEl.classList.add('input-form-error') ;
         taskPriceEl.classList.remove('input-form-error') ;
-        helloTextEl.classList.add('hello-text-error');
     }
 
     if (isNaN(priceEl.value)) {
@@ -42,7 +41,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
-        helloTextEl.classList.add('hello-text-error');
+
     }
 
     if (priceEl.value < 0) {
@@ -51,7 +50,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
-        helloTextEl.classList.add('hello-text-error');
+
     }
 
     if (priceEl.value === '') {
@@ -60,7 +59,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
-        helloTextEl.classList.add('hello-text-error');
+
     }
 
     if (priceEl.value === '0') {
@@ -69,15 +68,17 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
-        helloTextEl.classList.add('hello-text-error');
+
     }
 
     if (ifError === true) {
         addButton.className = "btn btn-outline-danger mb-3";
+        helloTextEl.className = 'badge badge-success hello-text-error';
         return;
     }
-        helloTextEl.classList.remove('hello-text-error');
-        helloTextEl.classList.add('hello-text-error-cancel');
+
+
+        helloTextEl.className ='badge badge-success hello-text-error-cancel';
         addButton.className = "btn btn-outline-primary mb-3";
         taskNameEl.classList.remove('input-form-error') ;
         taskPriceEl.classList.remove('input-form-error') ;
