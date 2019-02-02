@@ -5,6 +5,7 @@ const formEl = document.querySelector('#task-form');
 const nameEl = document.querySelector('#task-name');
 const listEl = document.querySelector('#task-list');
 const priceEl = document.querySelector('#task-price');
+const helloTextEl = document.querySelector('#hello-text');
 
 const purchaseList = new PurchaseList(new PurchaseLocalStorage());
 rebuildTree(listEl, purchaseList);
@@ -25,12 +26,14 @@ formEl.addEventListener('submit', (evt) => {
     let ifErrorName = false;
     let ifError= false;
 
+// TODO: УБРАТЬ ПОВТОРЯЮЩИЕСЯ БЛОКИ СДЕЛАТЬ НОРМАЛЬНЫЕ ФЛАГИ И КЛАССЛИСТЫ
+
     if (nameEl.value === ''){
         ifError = true;
         ifErrorName = true;
         taskNameEl.classList.add('input-form-error') ;
         taskPriceEl.classList.remove('input-form-error') ;
-
+        helloTextEl.classList.add('hello-text-error');
     }
 
     if (isNaN(priceEl.value)) {
@@ -39,6 +42,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
+        helloTextEl.classList.add('hello-text-error');
     }
 
     if (priceEl.value < 0) {
@@ -47,6 +51,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
+        helloTextEl.classList.add('hello-text-error');
     }
 
     if (priceEl.value === '') {
@@ -55,6 +60,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
+        helloTextEl.classList.add('hello-text-error');
     }
 
     if (priceEl.value === '0') {
@@ -63,6 +69,7 @@ formEl.addEventListener('submit', (evt) => {
         if (ifErrorName === false) {
             taskNameEl.classList.remove('input-form-error') ;
         }
+        helloTextEl.classList.add('hello-text-error');
     }
 
     if (ifError === true) {
@@ -70,7 +77,7 @@ formEl.addEventListener('submit', (evt) => {
         return;
     }
 
-
+        helloTextEl.classList.add('hello-text-error-cancel');
         addButton.className = "btn btn-outline-primary mb-3";
         taskNameEl.classList.remove('input-form-error') ;
         taskPriceEl.classList.remove('input-form-error') ;
