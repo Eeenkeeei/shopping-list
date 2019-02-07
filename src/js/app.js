@@ -121,9 +121,10 @@ function rebuildTree(container, list) {
         totalPrice = purchaseList.sum(item);
 
         // todo: переделать для стоимости и имени
+        purchaseList.maxPrice();
+        maxItemName = purchaseList.storage.maxItem.name;
+        maxItemPrice = purchaseList.storage.maxItem.price;
 
-        maxItemPrice = purchaseList.maxPrice();
-        maxItemName = purchaseList.storage.max_item_name;
     }
     if (totalPrice != 0) {
         const textBox = document.createElement('span');

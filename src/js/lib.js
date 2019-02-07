@@ -30,13 +30,9 @@ export class PurchaseList {
 
     maxPrice() {
        this.storage.maxPrice();
-       return this.storage.max_item_price;
+
     }
 
-    maxName() {
-        this.storage.maxName();
-        return this.storage.max_item_name;
-    }
 
     removeAll(){
         this.storage.removeAll();
