@@ -8,9 +8,10 @@ export class PurchaseLocalStorage {
         }
 
         this.priceall = 0;
-        this.max_item_price = 0;
-        this.max_item_name = '';
-        // todo: обработка ошибок
+        this.maxItem = {
+            price: 0,
+            name: ''
+        };
     }
 
     add(item) {
@@ -18,7 +19,7 @@ export class PurchaseLocalStorage {
         this.save();
     }
 
-    sum(item){
+    sum(item) {
         let totalPrice = 0;
         for (const item of this.items) {
             totalPrice += item.price;
@@ -35,7 +36,7 @@ export class PurchaseLocalStorage {
             this.items.splice(index, 1);
             this.save();
         }
-        this.max_item_price = this.maxPrice();
+        this.maxItem.price= this.maxPrice();
         this.priceall -= item.price;
         return this.priceall;
     }
@@ -50,13 +51,11 @@ export class PurchaseLocalStorage {
         for (const item of this.items) {
             if (item.price > result) {
                 result = item.price;
-                this.max_item_name = item.name;
+                this.maxItem.name= item.name;
                 this.save();
             }
         }
-        this.max_item_price = result;
-        return this.max_item_price;
-
+        this.maxItem.price = result;
     }
 
     save() {
